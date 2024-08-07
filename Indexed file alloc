@@ -1,0 +1,72 @@
+#include <stdio.h>
+
+#define MAX_FILES 100
+#define MAX_BLOCKS 100
+
+typedef struct {
+    int startAddress;
+    int length;
+    int numberOfBlocks;
+    int blocks[MAX_BLOCKS];
+} File;
+
+void printFileDetails(File files[], int numberOfFiles) {
+    printf("file no:\tno of blocks:\tlength:\tstart addr:\n");
+    for (int i = 0; i < numberOfFiles; i++) {
+        printf("file no: %d\t no of blocks: %d length: %d start addr: %d\n",
+               i, files[i].numberOfBlocks, files[i].length, files[i].startAddress);
+    }
+}
+
+void printBlocks(int blocks[], int numberOfBlocks) {
+    for (int i = 0; i < numberOfBlocks; i++) {
+        printf("%d ", blocks[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int numberOfFiles;
+    File files[MAX_FILES];
+
+    printf("Enter the number of files to be added: ");
+    scanf("%d", &numberOfFiles);
+
+    for (int i = 0; i < numberOfFiles; i++) {
+        printf("Enter the start address of file[%d]: ", i);
+        scanf("%d", &files[i].startAddress);
+
+        printf("Enter the length of the file[%d]: ", i);
+        scanf("%d", &files[i].length);
+
+        printf("Enter the number of blocks of file[%d]: ", i);
+        scanf("%d", &files[i].numberOfBlocks);
+
+        printf("Enter the blocks allocated: ");
+        for (int j = 0; j < files[i].numberOfBlocks; j++) {
+            scanf("%d", &files[i].blocks[j]);
+        }
+    }
+
+    printFileDetails(files, numberOfFiles);
+
+    int choice, fileNumber;
+    do {
+        printf("1. Get the blocks 2. exit\n");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter the file number: ");
+            scanf("%d", &fileNumber);
+
+            if (fileNumber < numberOfFiles) {
+                printf("Blocks allocated: ");
+                printBlocks(files[fileNumber].blocks, files[fileNumber].numberOfBlocks);
+            } else {
+                printf("Invalid file number!\n");
+            }
+        }
+    } while (choice != 2);
+
+    return 0;
+}
