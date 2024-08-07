@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_BLOCKS 100
+
+int allocatedBlocks[MAX_BLOCKS];
+int totalBlocks;
+
+void initializeBlocks() {
+    for (int i = 0; i < MAX_BLOCKS; i++) {
+        allocatedBlocks[i] = 0;
+    }
+}
+
+int isAllocated(int block) {
+    return allocatedBlocks[block] == 1;
+}
+
+void allocateBlock(int block) {
+    allocatedBlocks[block] = 1;
+}
+
+void displayAllocation(int startBlock, int numBlocks) {
+    int allocated = 0;
+    for (int i = 0; i < numBlocks; i++) {
+        int block = startBlock + i;
+        while (isAllocated(block)) {
+            block++;
+        }
+        allocateBlock(block);
+        printf("bno: %d ---->1\n", block);
+        allocated++;
+    }
+}
+
+int main() {
+    int numAllocated, block, choice, startBlock, numBlocks;
+
+    initializeBlocks();
+
+    printf("Enter the number of blocks which are already allocated: ");
+    scanf("%d", &numAllocated);
+
+    printf("Enter the blocks which are already allocated: ");
+    for (int i = 0; i < numAllocated; i++) {
+        scanf("%d", &block);
+        allocateBlock(block);
+    }
+
+    while (1) {
+        printf("1. add file 2. exit: ");
+        scanf("%d", &choice);
+
+        if (choice == 2) {
+            break;
+        }
+
+        printf("Enter the no of blocks to be allocated and starting block: ");
+        scanf("%d %d", &numBlocks, &startBlock);
+
+        displayAllocation(startBlock, numBlocks);
+    }
+
+    return 0;
+}
+
