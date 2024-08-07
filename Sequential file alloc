@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_FILES 10
+
+typedef struct {
+    char name[20];
+    int startBlock;
+    int length;
+} File;
+
+int main() {
+    int n;
+    File files[MAX_FILES];
+
+    printf("Enter the number of files to be allocated: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter the name of the file %d: ", i + 1);
+        scanf("%s", files[i].name);
+        printf("Enter the start block of the file %d: ", i + 1);
+        scanf("%d", &files[i].startBlock);
+        printf("Enter the length of the file %d: ", i + 1);
+        scanf("%d", &files[i].length);
+    }
+
+    printf("\nFile Allocation Table\n");
+    printf("File Name\tStart Block\tLength\n");
+    for (int i = 0; i < n; i++) {
+        printf("%s\t\t%d\t\t%d\n", files[i].name, files[i].startBlock, files[i].length);
+    }
+
+    return 0;
+}
