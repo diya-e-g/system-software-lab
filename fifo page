@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+void main()
+{
+    int i,j,k,pf=0,count=0,rs[25],f,m[10],n;
+    printf("Enter the reference string length: ");
+    scanf("%d",&n);
+    printf("Enter the reference string: ");
+    for(i=0;i<n;i++)
+    {
+        scanf("%d",&rs[i]);
+    }
+    printf("Enter the number of frames: ");
+    scanf("%d",&f);
+    for(i=0;i<f;i++)
+    {
+        m[i]=-1;
+    }
+    printf("The page replacement process is:\n");
+    for(i=0;i<n;i++)
+    {
+        for(k=0;k<f;k++)
+        {
+            if(m[k]==rs[i])
+            break;
+        }
+        if(k==f)
+        {
+            m[count++]=rs[i];
+            pf++;
+        }
+        if(count==f)
+        {
+            count=0;
+        }
+        for(j=0;j<f;j++)
+        printf("%d\t",m[j]);
+        if(k==f)
+        printf("PF no: %d\n",pf);
+        else
+        printf("\n");
+    }
+    printf("The total number of page faults using FIFO are: %d",pf);
+}
